@@ -1,0 +1,1051 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Planbd</title>
+    
+    <link rel="stylesheet" href="static/themes/my.css" />
+    <link rel="stylesheet" href="static/jquery.mobile-1.4.0/jquery.mobile-1.4.0.min.css" />
+        
+    <script src="static/jquery/1.10.2/jquery-1.10.2.min.js">   </script>
+    <script src="static/jquery.mobile-1.4.0/jquery.mobile-1.4.0.min.js">   </script>
+	
+	<script src="static/ff_plan_details_progress_all_activity.js">   </script>
+	
+    <script src="static/planbd_survey.js">   </script>
+	
+	<script>
+		function syncPage(){
+			$(".errorChk").text("");
+			$.mobile.navigate("#pagesync")
+			};		
+		
+			
+		$(document).ready(function(){
+			$('#loader').hide();				
+			
+		});
+		
+		function getEmpty(){
+			$(".plan_tr").empty();
+		};
+		
+	 
+ 
+		
+	</script>
+	       
+    <style>	
+		
+        .reqField{ color:#FF0000;}
+        .errorChk{ color:#FF0000; text-shadow:none;}
+		li{word-wrap:break-word!important; white-space:normal!important;}
+		
+		
+    </style>	
+</head>
+
+<body >
+
+
+<!-- MAIN MENU ----------------------------------------------------------------------------- -->
+<div data-role="page" data-theme="d" id="reportType" style="overflow:scroll;" >
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" href="#leftpanel" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        
+        <a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-power ui-btn-icon-notext " onClick="exit();" >Exit </a>
+        <h3>Select Field </h3>
+    </div>
+    <div data-role="content">
+            <ul data-role="listview" data-inset="true">
+            	<a href="#" onClick="chkSurveySector('Water');" data-role="button">Water Point</a>
+            </ul>
+            <ul data-role="listview" data-inset="true">
+            	<a href="#" onClick="chkSurveySector('Sanitation');" data-role="button">Sanitation</a>
+            </ul>
+            <ul data-role="listview" data-inset="true">
+            	<a href="#" onClick="chkSurveySector('Handwash');" data-role="button">Hygiene</a>
+            </ul>
+    </div>
+    <div data-theme="d" data-role="footer" data-position="fixed" style="font-size:12px;background-color:#CCC;" align="center" >m-Reporting 20160330</div><!------/footer 20150401-20150309 -->
+    
+    <div data-role="panel" id="leftpanel" data-position="left" data-display="overlay" data-theme="d">
+        <div align="center"><img src="wab.jpg"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <ul data-role="listview" >
+          <li><a data-role="button" class="ui-btn" onclick="syncPage();">Sync</a></li>		  
+        </ul>
+        <br/>
+        <br/>
+        <br/>
+        <div align="center"><img src="logo_gp.png"></div>
+    </div>
+</div>
+
+
+<!-- ------------------- sync page---------------------------------------------------------------------------------------- -->
+<div data-theme="d" data-role="page" id="pagesync" style="overflow:scroll;" >
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " ><img src="wateraid-logo-small.jpg"></a>
+        <h3>Sync</h3>
+    </div>
+    <div data-role="content">
+        <div class="errorChk"></div>
+        <ul data-role="listview" data-inset="true" data-theme="d">
+            <li class="ui-field-contain">
+                <label for="mobile"> Mobile No</label>
+                <input name="mobile" id="mobile" placeholder="" value="" type="number" >
+            </li>
+            <li class="ui-field-contain">
+                <label for="password">Password </label>
+                <input type="password" name="password" id="password" placeholder="" value="" >
+            </li>
+        </ul>
+        <a data-role="button" href="#" id="syncBasic"  data-theme="d" data-transition="slide" >Sync</a>
+		<div id="#syncData"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+
+
+<div data-theme="d" data-role="page" id="pageSearch" style="overflow:scroll;" >
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets" style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        <h3>Search</h3>
+    </div>
+    <div data-role="content">
+    	<div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+	   
+        <div class="errorChk"></div>
+        <ul data-role="listview" data-inset="true" data-theme="d">
+            <li class="ui-field-contain">
+                <label for="refID"> Referance ID</label>
+                <input name="refID" id="refID" placeholder="" value="" type="number">
+            </li>            
+        </ul>
+        <a data-role="button" href="#" onClick="searchRec();"  data-theme="d" data-transition="slide" id="btnSearch" >Search</a>
+		<div id="#syncData"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+
+<div data-theme="d" data-role="page" id="pageDetails" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;"><img src="wateraid-logo-small.jpg"></a>
+        <h3>Details</h3>
+    </div>
+    <div data-role="content">
+    	<div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+	   
+    	<!--<ul data-role="listview" data-inset="true" data-theme="d">
+            <li class="ui-field-contain">
+                <img src="" alt="Image" />
+            </li>            
+        </ul>-->
+        
+        <table class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; font-size:70%; width:100%;" >
+            <tr >
+              <td style="width:40%;" >Sl No</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="slNo" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:40%;" >Ref ID</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="ref_id" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:40%;" >Indicator</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="activity" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:40%;" >Sector</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="sector" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:40%;" >WP/HH ID</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="achID" ></td>                     
+            </tr>
+          </table>
+          <br/>
+          <table class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; font-size:70%; width:100%;">
+            <tr  style="background-color:#F7F7F7;">
+              <td colspan="3" >Population</td>                                   
+            </tr>
+            <tr >
+              <td style="width:50%;" >Female 18+</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:50%;" id="female" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:50%;" >Male 18+</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:50%;" id="male" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:50%;" >Girl (5+ to <=18years)</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:50%;" id="girls" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:50%;" >Boy (5+ to <=18years)</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:50%;" id="boys" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:50%;" >Girl (<=5)</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:50%;" id="girls_under" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:50%;" >Boy (<=5)</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:50%;" id="boys_under" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:50%;" >Total Population</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:50%;" id="population" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:50%;" >PWD Female</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:50%;" id="dap_female" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:50%;" >PWD Male</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:50%;" id="dap_male" ></td>                     
+            </tr>
+            <tr id="tr_hh">
+              <td style="width:40%;" >Total Households</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="totalHH" ></td>                     
+            </tr>
+                   
+          </table>
+          <br/>
+         <table id="tblFacility" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; font-size:70%; width:100%;">
+            <tr  style="background-color:#F7F7F7;">
+              <td colspan="3" >Facility Count</td>                                   
+            </tr>
+            <tr >
+              <td style="width:40%;" >Type of latrine</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="typeOfLat" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:40%;" >Total Households</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="totalHHSan" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:40%;" >Completion Date</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="compDate" ></td>                     
+            </tr>
+          </table>
+          <br/>
+          <table class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; font-size:70%; width:100%;">
+            <tr  style="background-color:#F7F7F7;">
+              <td colspan="3" >Water Point Details</td>                                   
+            </tr>
+            <tr >
+              <td style="width:40%;" >Technology</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="technology" ></td>                     
+            </tr>
+            <tr >
+              <td style="width:40%;" >Completion Date</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="techCompDate" ></td>                     
+            </tr>
+          </table>
+         <br/>
+          <table id="testResult" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; font-size:70%; width:100%;">
+            <tr  style="background-color:#F7F7F7;">
+              <td colspan="3" >Test result</td>                                   
+            </tr>
+            <tr >
+              <td style="width:40%;" >Arsenic</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" ><div><span id="arsenic"></span>&nbsp;<span>mg/L</span></div><div id="arTestDt"></div></td>                     
+            </tr>
+            <tr >
+              <td style="width:40%;" >Iron</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" ><div><span id="iron"></span>&nbsp;<span>mg/L</span></div><div id="ironTestDt"></div></td>                     
+            </tr>
+            <tr >
+              <td style="width:40%;" >FC</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" ><div><span id="fc"></span>&nbsp;<span>Nos/100ml</span></div><div id="fcTestDt"></div></td>                     
+            </tr>
+            <tr >
+              <td style="width:40%;" >Chloride</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" ><div><span id="choloride"></span>&nbsp;<span>mg/L</span></div><div id="cholorideTestDt"></div></td>                     
+            </tr> 
+            <tr >
+              <td style="width:40%;" >Potable St</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="potableSt" ></td>                     
+            </tr>  
+            <tr >
+              <td style="width:40%;" >Test By</td>
+              <td style="width:1%;" >:</td>
+              <td style="width:60%;" id="testBy" ></td>                     
+            </tr>                         
+        </table>	
+        
+        <a data-role="button" href="#" onClick="detailsNext();"  data-theme="d" data-transition="slide" >Next</a>
+		
+      
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+
+
+<div data-theme="d" data-role="page" id="pageWater" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        <h3></h3>
+    </div>
+    <div data-role="content">
+    	<div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+	   
+        <div class="errorChk"></div>
+        
+        <ul data-role="listview" data-inset="true">               
+                <li style="background-color:#F2F2F2;">Date of Functionality and Use Assessment<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <input type="date" name="san_conp_date" id="san_conp_date" data-role="date">
+                </li> 
+                <li style="background-color:#F2F2F2;">Name/designation of Assessor<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                	<input type="text" name="asserName" id="asserName" >
+                </li>
+                <li style="background-color:#F2F2F2;">Assessor’s organisation/employer<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                	<input type="text" name="asserEmp" id="asserEmp" >
+                </li>                
+            </ul>    
+    
+
+		<ul data-role="listview" data-inset="true">
+                <li style="background-color:#EBEBEB;">Water point condition (RAG rating)<sup class="reqField">*</sup></li>
+                      
+                <li style="background-color:#F2F2F2;">Water point not functioning acceptably: state nature of major repair needed<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true" >
+                        <input name="wp_1" id="wp_1" value="1" type="checkbox">
+                        <label for="wp_1">Majore repairs required that effect functionality</label>                        
+                    </fieldset>
+                </li>
+                <li style="background-color:#F2F2F2;">Water point functioning but some elements need to be improved: state nature of minor repair needed<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="wp_func_1" id="wp_func_1" value="1" type="checkbox">
+                        <label for="wp_func_1">Some improvements to drain</label>
+                        <input name="wp_func_2" id="wp_func_2" value="2" type="checkbox">
+                        <label for="wp_func_2">Minor cracks</label> 
+                        <input name="wp_func_3" id="wp_func_3" value="3" type="checkbox">
+                        <label for="wp_func_3">Loose or missing bolts in pumphead that can be easily replaced</label>                                                
+                    </fieldset>
+                </li>
+                <li style="background-color:#F2F2F2;">Water point not functioning acceptably: state nature of major repair needed<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="wp_not_func_1" id="wp_not_func_1" value="1" type="checkbox">
+                        <label for="wp_not_func_1">Majore repairs required that effect functionality</label>                        
+                    </fieldset>
+                </li>
+            </ul>         
+         
+         
+         
+         
+        <a data-role="button" href="#" onClick="waterNext();"  data-theme="d" data-transition="slide" >Next</a>
+		<div id="#syncData"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+
+<div data-theme="d" data-role="page" id="pageWater1" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        <h3></h3>
+    </div>
+    <div data-role="content">
+    	<div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+	   
+        <div class="errorChk"></div>
+
+		<ul data-role="listview" data-inset="true">
+                <li style="background-color:#F2F2F2;">Water point use  (RAG rating)<sup class="reqField">*</sup></li>
+         </ul>
+        <ul data-role="listview" data-inset="true">
+               	<li style="background-color:#F2F2F2;">Not in use: state reason for non-use<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="wp_not_use_1" id="wp_not_use_1" value="1" type="checkbox">
+                        <label for="wp_not_use_1">Used less than 180 days</label>                        
+                    </fieldset>
+                </li>
+                <li style="background-color:#F2F2F2;">In use most of the time: state reason for partial use<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="wp_per_use_1" id="wp_per_use_1" value="1" type="checkbox">
+                        <label for="wp_per_use_1">Reason for partial use</label>                        
+                    </fieldset>
+                </li>
+                <li style="background-color:#F2F2F2;">In use all of the time<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="wp_use_all_time_1" id="wp_use_all_time_1" value="1" type="checkbox">
+                        <label for="wp_use_all_time_1">Reason </label>                        
+                    </fieldset>
+                </li>
+                
+                
+            </ul>
+        	<ul data-role="listview" data-inset="true">               
+                <li style="background-color:#F2F2F2;">Overall RAG Rating<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="overAllRagRate" id="2" value="2" type="radio">
+                        <label for="2" style="background-color:#65C96A;">Green</label>
+                        <input name="overAllRagRate" id="3" value="3" type="radio">
+                        <label for="3" style="background-color:#FADD7A;">Amber</label> 
+                        <input name="overAllRagRate" id="4" value="4" type="radio">
+                        <label for="4" style="background-color:#F88874;">Red</label>                                                
+                    </fieldset>
+                </li>              
+            </ul>         
+         
+         
+         
+         
+        <a data-role="button" href="#" onClick="waterNext1();"  data-theme="d" data-transition="slide" >Next</a>
+		<div id="#syncData"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+
+<div data-theme="d" data-role="page" id="pageSanitation" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        <h3></h3>
+    </div>
+    <div data-role="content">
+    	<div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+	   
+        <div class="errorChk"></div>
+        
+        
+        <ul data-role="listview" data-inset="true">               
+                <li style="background-color:#F2F2F2;">Village/community/cluster declared ODF? <sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" >
+                        <input name="odfDecleared" id="2" value="YES" type="radio">
+                        <label for="2">YES</label>
+                        <input name="odfDecleared" id="3" value="NO" type="radio">
+                        <label for="3">NO</label>                                                              
+                    </fieldset>
+                </li> 
+                <li style="background-color:#F2F2F2;">ODF declaration date<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                	<input type="date" name="odf_dec_date" id="odf_dec_date" data-role="date">
+                </li>                           
+            </ul>    
+    
+
+			<!--<table class="ui-body-d ui-shadow table-stripe ui-responsive"  data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px;">
+                <tr valign="middle">
+                    <td colspan="3" ><strong>Beneficiary Count</strong></td>
+              </tr>
+              <tr>
+                    <td width="70%" style="vertical-align:middle;">Female (18+)</td>
+                    <td width="30%">
+                    <input name="female" id="female" placeholder="" onBlur="totalPopulation();" value="" type="number"></td>
+                    <td width="5" align="left"></td>
+                </tr>
+                
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">Male (18+)</td>
+                    <td width="30%"><input name="male" id="male" onBlur="totalPopulation();" placeholder="" value="" type="number"></td>
+                    <td width="5" align="left"></td>
+                </tr>
+                
+                
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">Girl (5+ to <=18)</td>
+                    <td width="30%"><input name="girls" id="girls" placeholder="" value="" onBlur="totalPopulation();" min="0" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">Boy (5+ to <=18)</td>
+                    <td width="30%"><input name="boys" id="boys" placeholder="" value="" min="0" onBlur="totalPopulation();" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">Girl (<=5)</td>
+                    <td width="30%"><input name="girlsUnder" id="girlsUnder" placeholder="" onBlur="totalPopulation();" value="" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">Boy (<=5)</td>
+                    <td width="30%"><input name="boysUnder" id="boysUnder" placeholder="" onBlur="totalPopulation();" value="" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr >
+                    <td width="70%" style="vertical-align:middle;">Total Population<sup class="reqField">*</sup></td>
+                    <td width="30%"><input name="population" id="population"  placeholder="" value="" type="number" readonly="readonly" style="background-color:#EEEEEE;"></td>
+                    <td width="5" align="left"></td>
+                </tr>
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">PWD Female</td>
+                    <td width="30%"><input name="dapFemale" id="dapFemale" placeholder="" value="" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">PWD Male</td>
+                    <td width="30%"><input name="dapMale" id="dapMale" placeholder="" value="" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr id="wpHH">
+                    <td width="70%" style="vertical-align:middle;">Total Households</td>
+                    <td width="30%"><input name="wpHousehold" id="wpHousehold" placeholder="" value="" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>					
+                   
+			</table>-->
+      
+         
+        <a data-role="button" href="#" onClick="sanitationNext();"  data-theme="d" data-transition="slide" >Next</a>
+		<div id="#syncData"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+<div data-theme="d" data-role="page" id="pageSanitation1" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        <h3></h3>
+    </div>
+    <div data-role="content">
+    	<div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+	   
+        <div class="errorChk"></div>        
+            
+        <ul data-role="listview" data-inset="true">               
+            <li style="background-color:#F2F2F2;">Date of construction <sup class="reqField">*</sup></li>                        
+            <li class="ui-field-contain">
+                <input type="date" name="odf_dec_date" id="odf_dec_date" data-role="date">
+            </li>
+            <li style="background-color:#F2F2F2;">Date of Functionality and Use Assessment<sup class="reqField">*</sup></li>                        
+            <li class="ui-field-contain">
+                <input type="date" name="func_assesment_date" id="func_assesment_date" data-role="date">
+            </li>  
+                                       
+        </ul>
+        
+        <ul data-role="listview" data-inset="true">               
+            <li style="background-color:#F2F2F2;"> Assessor<sup class="reqField">*</sup></li>
+            <li style="background-color:#F2F2F2;"> Name/designation<sup class="reqField">*</sup></li>                        
+            <li class="ui-field-contain">
+                <input type="text" name="odf_dec_date" id="odf_dec_date" >
+            </li>
+            <li style="background-color:#F2F2F2;">Organisation/Employer<sup class="reqField">*</sup></li>                        
+            <li class="ui-field-contain">
+                <input type="text" name="func_assesment_date" id="func_assesment_date">
+            </li>  
+                                       
+        </ul>        
+     
+        <ul data-role="listview" data-inset="true">               
+            <li style="background-color:#F2F2F2;">Is latrine classified as basic or improved? <sup class="reqField">*</sup></li>                
+            <li class="ui-field-contain">
+                <fieldset data-role="controlgroup" data-mini="true">
+                    <input name="latClasified" id="2" value="Basic" type="radio">
+                    <label for="2">Basic</label>
+                    <input name="latClasified" id="3" value="Improved" type="radio">
+                    <label for="3">Improved</label>
+                    <input name="latClasified" id="4" value="Shared" type="radio">
+                    <label for="4">Shared</label>                                                              
+                </fieldset>
+            </li>                                      
+        </ul>  
+         
+         
+         
+        <a data-role="button" href="#" onClick="sanitationNext1();"  data-theme="d" data-transition="slide" >Next</a>
+		<div id="#syncData"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+<div data-theme="d" data-role="page" id="pageSanitation2" style="overflow:scroll;" >
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        <h3></h3>
+    </div>
+    <div data-role="content">
+    	<div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+	   
+        <div class="errorChk"></div>        
+            
+        <ul data-role="listview" data-inset="true">               
+            <li style="background-color:#F2F2F2;">Has latrine changed classification since outputs phase?(e.g. upgraded to improved by household?)<sup class="reqField">*</sup></li>                        
+            <li class="ui-field-contain">
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <input name="odfDecleared" id="2" value="YES" type="radio"  onclick="latChangeClass('YES')">
+                    <label for="2">YES</label>
+                    <input name="odfDecleared" id="3" value="NO" type="radio" onclick="latChangeClass('NO')">
+                    <label for="3">NO</label>                                                              
+                </fieldset>
+            </li>
+            <li style="background-color:#F2F2F2;" class="liStChange">State change<sup class="reqField">*</sup></li>                        
+            <li class="ui-field-contain liStChange">
+                <fieldset data-role="controlgroup" data-mini="true" >
+                    <input name="stateChange_1" id="stateChange_1" value="1" type="checkbox">
+                    <label for="stateChange_1">Structure-gunny bag to tin</label>
+                    <input name="stateChange_2" id="stateChange_2" value="2" type="checkbox">
+                    <label for="stateChange_2">Structure-tin to concrete</label>
+                    <input name="stateChange_3" id="stateChange_3" value="3" type="checkbox">
+                    <label for="stateChange_3">Pan-plastic to ciramic</label>                                                              
+                </fieldset>
+            </li>  
+                                       
+        </ul>
+        
+        <ul data-role="listview" data-inset="true">
+                <li style="background-color:#EBEBEB;">Improved latrine condition (RAG rating)<sup class="reqField">*</sup></li>
+                      
+                <li style="background-color:#F2F2F2;">Inadequate quality of latrine: state reason for inadequate quality<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="1" id="1" value="1" type="checkbox">
+                        <label for="1">Majore repaires to slab needed</label>                        
+                    </fieldset>
+                </li>
+                <li style="background-color:#F2F2F2;">Partially adequate quality: state reason for partial quality<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="2" id="2" value="2" type="checkbox">
+                        <label for="2">Sound slab (e.g. made from stronger, better quality materials)</label>
+                        <input name="3" id="3" value="3" type="checkbox">
+                        <label for="3">Slab needs minor repaires but safety of users not affected</label>                                                                      
+                    </fieldset>
+                </li>
+                <li style="background-color:#F2F2F2;">Adequate quality<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="1" id="1" value="1" type="checkbox">
+                        <label for="1">Sound slab in good condition</label>
+                        <input name="2" id="2" value="2" type="checkbox">
+                        <label for="2">Functioning water seal</label>    
+                        <input name="3" id="3" value="3" type="checkbox">
+                        <label for="3">Offset latrine or</label>
+                        <input name="4" id="4" value="4" type="checkbox">
+                        <label for="4">P-trap functioning</label>
+                        <input name="5" id="5" value="5" type="checkbox">
+                        <label for="5">Straight drop with hole stopper</label>                               
+                    </fieldset>
+                </li>
+            </ul>     
+     
+         
+         
+        <a data-role="button" href="#" onClick="sanitationNext2();"  data-theme="d" data-transition="slide" >Next</a>
+		<div id="#syncData"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+<div data-theme="d" data-role="page" id="pageSanitation3" style="overflow:scroll;" >
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        <h3></h3>
+    </div>
+    <div data-role="content">
+    	<div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+	   
+        <div class="errorChk"></div>        
+            
+                
+        <ul data-role="listview" data-inset="true">
+                <li style="background-color:#EBEBEB;">Latrine use (RAG rating)<sup class="reqField">*</sup></li>
+                      
+                <li style="background-color:#F2F2F2;">Not in use: state reason for non-use<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="1" id="1" value="1" type="checkbox">
+                        <label for="1">Used as storeroom</label>
+                        <input name="2" id="2" value="2" type="checkbox">
+                        <label for="2">No sludge present in pit</label>                            
+                    </fieldset>
+                </li>
+                <li style="background-color:#F2F2F2;">In use most of the time: state reason for partial use<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="2" id="2" value="2" type="checkbox">
+                        <label for="2">Reason for partial use</label>                                                                     
+                    </fieldset>
+                </li>
+                <li style="background-color:#F2F2F2;">In use all of the time<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="1" id="1" value="1" type="checkbox">
+                        <label for="1"> Latrine used by all HH members including children, disabled and elderly. Infant faeces are disposed of in latrine</label>
+                                                    
+                    </fieldset>
+                </li>
+            </ul>
+            
+            <ul data-role="listview" data-inset="true">               
+                <li style="background-color:#F2F2F2;">Overall RAG Rating<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="overAllRagRateSan" id="2" value="2" type="radio">
+                        <label for="2" style="background-color:#65C96A;">Green</label>
+                        <input name="overAllRagRateSan" id="3" value="3" type="radio">
+                        <label for="3" style="background-color:#FADD7A;">Amber</label> 
+                        <input name="overAllRagRateSan" id="4" value="4" type="radio">
+                        <label for="4" style="background-color:#F88874;">Red</label>                                                
+                    </fieldset>
+                </li>              
+            </ul>       
+     
+         
+         
+        <a data-role="button" href="#" onClick="sanitationNext3();"  data-theme="d" data-transition="slide" >Next</a>
+		<div id="#syncData"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+
+
+<div data-theme="d" data-role="page" id="pageHandWash" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        <h3></h3>
+    </div>
+    <div data-role="content">
+    	<div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+	   
+        <div class="errorChk"></div>
+        
+        
+        <ul data-role="listview" data-inset="true">               
+            <li style="background-color:#F2F2F2;">Hand washing device available at latrine? <sup class="reqField">*</sup></li>                
+            <li class="ui-field-contain">
+                <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true" >
+                    <input name="hwDevice" id="2" value="YES" type="radio">
+                    <label for="2">YES</label>
+                    <input name="hwDevice" id="3" value="NO" type="radio">
+                    <label for="3">NO</label>                                                              
+                </fieldset>
+            </li>
+        </ul>
+        <ul data-role="listview" data-inset="true">   
+            <li style="background-color:#F2F2F2;">Hand washing device within 5 meters of latrine? <sup class="reqField">*</sup></li>                
+            <li class="ui-field-contain">
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <input name="hwDevice5m" id="2" value="YES" type="radio">
+                    <label for="2">YES</label>
+                    <input name="hwDevice5m" id="3" value="NO" type="radio">
+                    <label for="3">NO</label>                                                              
+                </fieldset>
+            </li> 
+         </ul>
+        <ul data-role="listview" data-inset="true">                  
+            <li style="background-color:#F2F2F2;">Hand washing device available at kitchen or dining? <sup class="reqField">*</sup></li>                
+            <li class="ui-field-contain">
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <input name="hwDeviceKit" id="2" value="YES" type="radio">
+                    <label for="2">YES</label>
+                    <input name="hwDeviceKit" id="3" value="NO" type="radio">
+                    <label for="3">NO</label>                                                              
+                </fieldset>
+            </li>
+        </ul>
+        <ul data-role="listview" data-inset="true">  
+            <li style="background-color:#F2F2F2;">Water available into Hand washing device? <sup class="reqField">*</sup></li>                
+            <li class="ui-field-contain">
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <input name="hwDeviceWater" id="2" value="YES" type="radio">
+                    <label for="2">YES</label>
+                    <input name="hwDeviceWater" id="3" value="NO" type="radio">
+                    <label for="3">NO</label>                                                              
+                </fieldset>
+            </li>
+        </ul>
+        <ul data-role="listview" data-inset="true">   
+            <li style="background-color:#F2F2F2;">Soap or soap substitute Available? <sup class="reqField">*</sup></li>                
+            <li class="ui-field-contain">
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <input name="hwDeviceSoap" id="2" value="YES" type="radio">
+                    <label for="2">YES</label>
+                    <input name="hwDeviceSoap" id="3" value="NO" type="radio">
+                    <label for="3">NO</label>                                                              
+                </fieldset>
+            </li>                          
+        </ul>    
+    
+
+			<!--<table class="ui-body-d ui-shadow table-stripe ui-responsive"  data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px;">
+                <tr valign="middle">
+                    <td colspan="3" ><strong>Beneficiary Count</strong></td>
+              </tr>
+              <tr>
+                    <td width="70%" style="vertical-align:middle;">Female (18+)</td>
+                    <td width="30%">
+                    <input name="female" id="female" placeholder="" onBlur="totalPopulation();" value="" type="number"></td>
+                    <td width="5" align="left"></td>
+                </tr>
+                
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">Male (18+)</td>
+                    <td width="30%"><input name="male" id="male" onBlur="totalPopulation();" placeholder="" value="" type="number"></td>
+                    <td width="5" align="left"></td>
+                </tr>
+                
+                
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">Girl (5+ to <=18)</td>
+                    <td width="30%"><input name="girls" id="girls" placeholder="" value="" onBlur="totalPopulation();" min="0" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">Boy (5+ to <=18)</td>
+                    <td width="30%"><input name="boys" id="boys" placeholder="" value="" min="0" onBlur="totalPopulation();" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">Girl (<=5)</td>
+                    <td width="30%"><input name="girlsUnder" id="girlsUnder" placeholder="" onBlur="totalPopulation();" value="" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">Boy (<=5)</td>
+                    <td width="30%"><input name="boysUnder" id="boysUnder" placeholder="" onBlur="totalPopulation();" value="" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr >
+                    <td width="70%" style="vertical-align:middle;">Total Population<sup class="reqField">*</sup></td>
+                    <td width="30%"><input name="population" id="population"  placeholder="" value="" type="number" readonly="readonly" style="background-color:#EEEEEE;"></td>
+                    <td width="5" align="left"></td>
+                </tr>
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">PWD Female</td>
+                    <td width="30%"><input name="dapFemale" id="dapFemale" placeholder="" value="" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="70%" style="vertical-align:middle;">PWD Male</td>
+                    <td width="30%"><input name="dapMale" id="dapMale" placeholder="" value="" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>
+                <tr id="wpHH">
+                    <td width="70%" style="vertical-align:middle;">Total Households</td>
+                    <td width="30%"><input name="wpHousehold" id="wpHousehold" placeholder="" value="" type="number"></td>
+                    <td width="5" align="left">&nbsp;</td>
+                </tr>					
+                   
+			</table>-->
+      
+         
+        <a data-role="button" href="#" onClick="handWashNext();"  data-theme="d" data-transition="slide" >Next</a>
+		<div id="#syncData"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+<div data-theme="d" data-role="page" id="pageHandWash1" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed" >
+        <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        <h3></h3>
+    </div>
+    <div data-role="content">
+    	<div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+	   
+        <div class="errorChk"></div>
+        
+        <ul data-role="listview" data-inset="true">               
+                <li style="background-color:#F2F2F2;">Date of data collection<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <input type="date" name="san_conp_date" id="san_conp_date" data-role="date">
+                </li> 
+                <li style="background-color:#F2F2F2;">Name/designation of Assessor<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                	<input type="text" name="asserName" id="asserName" >
+                </li>
+                <li style="background-color:#F2F2F2;">Assessor’s organisation/employer<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                	<input type="text" name="asserEmp" id="asserEmp" >
+                </li>                
+            </ul>    
+    
+
+		<ul data-role="listview" data-inset="true">
+              
+                <li style="background-color:#F2F2F2;">At what points during the day do you wash your hands with soap? <sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <input name="1" id="1" value="1" type="checkbox">
+                        <label for="1">Before eating</label>
+                        <input name="2" id="2" value="2" type="checkbox">
+                        <label for="2">After defecating</label> 
+                        <input name="3" id="3" value="3" type="checkbox">
+                        <label for="3">Before preparing food</label>
+                        <input name="4" id="4" value="4" type="checkbox">
+                        <label for="4">After cleaning a baby or child who has defecated</label>  
+                        <input name="5" id="5" value="5" type="checkbox">
+                        <label for="5">Before feeding a child</label>                                              
+                    </fieldset>
+                </li>
+               
+            </ul>         
+         
+         
+         
+         
+        <a data-role="button" href="#" onClick="handWashNext1();"  data-theme="d" data-transition="slide" >Next</a>
+		<div id="#syncData"></div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+
+
+
+
+
+<div data-role="page" id="inPhoto" style="overflow:scroll;" >
+    <div data-theme="d" data-role="header" data-position="fixed" >
+    <a data-role="button" onClick="menuClick();" data-icon="bullets" data-iconpos="left" class="ui-btn ui-shadow ui-corner-all ui-icon-bullets " style="padding:5px;" ><img src="wateraid-logo-small.jpg"></a>
+        <!--<a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right" data-transition="slide">Back</a>-->
+        <h3>Survey Data</h3>
+  </div>
+    <div data-role="content">       
+        <div class="sector" style="background-color:#E6E6E6; font-weight:bold; word-wrap: break-word; box-shadow:0px 0px 5px; padding:10px 10px; border-radius:5px; margin-bottom:10px;"></div>
+		
+        <a data-role="button" id="btn_take_pic" onClick="getAchivementImage();" class="ui-btn" >Take Picture 1</a>       
+        <img src="" width="128" height="128" alt="Image" id="myImageA">
+        <input name="achPhoto" id="achPhoto" value="photo"   type="hidden">
+        
+        <input name="ach_lat" id="ach_lat" value=""   type="hidden">
+        <input name="ach_long" id="ach_long" value=""  type="hidden">
+        <!--<a data-role="button" id="btn_ach_lat_long" onClick="getLocationInfoAch();" class="ui-btn" >Confirm Location1</a>-->
+        <br/><br/>        
+        <a data-role="button" id="btn_take_pic1" onClick="getAchivementImage();" class="ui-btn" >Take Picture 2</a>       
+        <img src="" width="128" height="128" alt="Image1" id="myImageA">
+        <input name="achPhoto1" id="achPhoto1" value="photo1"   type="hidden">       
+      
+        <input name="ach_lat1" id="ach_lat1" value=""   type="hidden">
+        <input name="ach_long1" id="ach_long1" value=""  type="hidden">
+        <!--<a data-role="button" id="btn_ach_lat_long1" onClick="getLocationInfoAch1();" class="ui-btn" >Confirm Location 2</a>-->
+		
+        <br/>
+        <ul data-role="listview" data-inset="true">               
+                <li style="background-color:#F2F2F2;">Assessors report (file name)<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                    <input type="date" name="san_conp_date" id="san_conp_date" data-role="date">
+                </li> 
+                <!--<li style="background-color:#F2F2F2;">Location<sup class="reqField">*</sup></li>                
+                <li class="ui-field-contain">
+                	<input name="ach_lat2" id="ach_lat2" value=""   type="hidden">
+        			<input name="ach_long2" id="ach_long2" value=""  type="hidden">
+                    <a data-role="button" id="btn_ach_lat_long2" onClick="getLocationInfoAch1();" class="ui-btn" >Confirm Location 2</a>
+                </li> -->             
+            </ul>    
+        
+    	<a data-role="button" id="btn_ach_lat_long" onClick="getLocationInfoAch();" class="ui-btn" >Confirm Location</a>
+        
+        <div class="errorChk"></div>
+        <!--<div id="checkLocationAch" style="color:#FF0000;"></div>-->
+        <br/><br/>
+        <!--<a data-role="button" id="btn_ach_save" onClick="achiveDataSave();" class="ui-btn" >Save</a>-->
+		<br/>
+        <!--<a data-role="button" id="btn_ach_submit" onClick="achiveDataSubmit();" class="ui-btn"  >Submit</a>-->
+        <a data-role="button" id="btn_ach_submit" onClick="#" class="ui-btn"  >Submit</a>
+		
+        
+    </div>    
+
+</div>
+
+
+<script type="text/javascript" src="phonegap.js"></script>
+
+
+</body>
+</html>
