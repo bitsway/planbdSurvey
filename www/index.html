@@ -738,8 +738,8 @@
 		<ul data-role="listview" data-inset="true">
             <li style="background-color:#EBEBEB;">Present conditions of installed water point<sup class="reqField">*</sup></li>
             <li style="background-color:#F2F2F2;">
-            	<fieldset data-role="controlgroup" data-mini="true" onclick="chkPresentIns(1)" >
-                    <input name="present_ins" id="1" value="1" type="radio">
+            	<fieldset data-role="controlgroup" data-mini="true"  >
+                    <input name="present_ins" id="1" value="1" type="radio" onchange="chkPresentIns(1)">
                      <label for="1">Adequate quality of construction of water point</label>
                 </fieldset>
             </li>                
@@ -752,8 +752,8 @@
                 </fieldset>
             </li>               
             <li style="background-color:#F2F2F2;">
-            	<fieldset data-role="controlgroup" data-mini="true" onclick="chkPresentIns(2)" >
-                    <input name="present_ins" id="2" value="2" type="radio">
+            	<fieldset data-role="controlgroup" data-mini="true"  >
+                    <input name="present_ins" id="2" value="2" type="radio" onchange="chkPresentIns(2)">
                      <label for="2">Water point functioning but some elements need to be improved</label>
                 </fieldset>
             </li>                
@@ -768,8 +768,8 @@
                 </fieldset>
             </li>
             <li style="background-color:#F2F2F2;">
-            	<fieldset data-role="controlgroup" data-mini="true" onclick="chkPresentIns(3)" >
-                    <input name="present_ins" id="3" value="3" type="radio">
+            	<fieldset data-role="controlgroup" data-mini="true"  >
+                    <input name="present_ins" id="3" value="3" type="radio" onchange="chkPresentIns(3)">
                      <label for="3">Water point not functioning acceptably</label>
                 </fieldset>
             </li>                
@@ -809,8 +809,8 @@
         <ul data-role="listview" data-inset="true">
         		<li style="background-color:#EBEBEB;">Water point use<sup class="reqField">*</sup></li>
                 <li style="background-color:#F2F2F2;">
-                	<fieldset data-role="controlgroup" data-mini="true" onclick="chkWpUse(1)" >
-                        <input name="wp_use" id="1" value="1" type="radio">
+                	<fieldset data-role="controlgroup" data-mini="true"  >
+                        <input name="wp_use" id="1" value="1" type="radio" onclick="chkWpUse(1)">
                          <label for="1">In use all of the time</label>
                     </fieldset>
                 </li>                
@@ -829,8 +829,8 @@
                     </fieldset>
                 </li>
                 <li style="background-color:#F2F2F2;">
-                	<fieldset data-role="controlgroup" data-mini="true" onclick="chkWpUse(2)" >
-                        <input name="wp_use" id="2" value="2" type="radio">
+                	<fieldset data-role="controlgroup" data-mini="true"  >
+                        <input name="wp_use" id="2" value="2" type="radio" onclick="chkWpUse(2)">
                          <label for="2">In use most of the time (used 180 day and above)</label>
                     </fieldset>
                 </li>                
@@ -847,8 +847,8 @@
                     </fieldset>
                 </li>
                	<li style="background-color:#F2F2F2;">
-                	<fieldset data-role="controlgroup" data-mini="true" onclick="chkWpUse(3)" >
-                        <input name="wp_use" id="3" value="3" type="radio">
+                	<fieldset data-role="controlgroup" data-mini="true"  >
+                        <input name="wp_use" id="3" value="3" type="radio" onclick="chkWpUse(3)">
                          <label for="3">Not in use (used less than 180 days)</label>
                     </fieldset>
                 </li>                

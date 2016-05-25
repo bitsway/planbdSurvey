@@ -528,10 +528,10 @@ function waterNext2(){
 						wp_not_use+=","+wp_not_use_ck;
 					}			
 				}
-			}
-				
 			waterStr2=waterStr1+"&wp_use_all_time=0,0,0,0,0&wp_use_most=0,0,0,0&wp_not_use="+wp_not_use
 			$.mobile.navigate("#pageHygiene")
+			}				
+			
 		}
 	}
 	
