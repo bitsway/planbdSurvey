@@ -49,6 +49,14 @@ var imagePathW="";
 $(document).ready(function(){
 	$('form').trigger("reset");	
 	$(".errorChk").text("");
+	
+	$("#wp_add_qlty_chk").hide();
+	$("#wp_func_chk").hide();
+	$("#wp_not_func_chk").hide();
+	
+	$("#wp_use_all_time_chk").hide();
+	$("#wp_use_most_chk").hide();
+	$("#wp_not_use_chk").hide();
 	//$("input:text,select").val('');
 	//$("input:checkbox,input:radio").removeAttr('checked');
 		
@@ -112,9 +120,20 @@ function syncBasic() {
 function menuClick(){	
 	$('form').trigger("reset");	
 	$(".errorChk").text("");
+	$(".sucChk").text("");
 	//$("#collectorName").val("");	
 	//$("input:text,select").val('');
 	//$("input:checkbox,input:radio").removeAttr('checked');	
+	
+	
+	$("#wp_add_qlty_chk").hide();
+	$("#wp_func_chk").hide();
+	$("#wp_not_func_chk").hide();
+	
+	$("#wp_use_all_time_chk").hide();
+	$("#wp_use_most_chk").hide();
+	$("#wp_not_use_chk").hide();
+	
 	
 	$("#btn_take_pic").show();
 	$("#btn_ach_lat_long").show();
@@ -346,6 +365,9 @@ function waterNext(){
 		waterStr=dtStr+"&w_type_act="+encodeURIComponent(w_type_act)+"&w_type_ins="+encodeURIComponent(w_type_ins)+"&is_tw_test="+is_tw_test+"&w_arsenic="+w_arsenic+"&w_iron="+w_iron+"&w_chloride="+w_chloride+"&w_focal="+w_focal+"&w_pH="+w_pH
 		
 		$(".errorChk").text("");
+		$("#wp_add_qlty_chk").hide();
+		$("#wp_func_chk").hide();
+		$("#wp_not_func_chk").hide();
 		
 		$.mobile.navigate("#pageWater1")	
 		
@@ -361,98 +383,190 @@ function waterNext1(){
 	$(".errorChk").text("");
 	
 	var all_cont=$("input[name='all_cont']:checked").val();
+	var present_ins=$("input[name='present_ins']:checked").val();
+	
+	
 	
 	if (all_cont=="" || all_cont==undefined){
 		$(".errorChk").text("Required Are all contaminants within the national limit?");
-	}else if($("#wp_add_qlty_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Adequate quality of construction of water point");		
-	}else if($("#wp_func_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Water point functioning but some elements need to be improved");	
-	}else if($("#wp_not_func_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Water point not functioning acceptably");		
+	}else if (present_ins=="" || present_ins==undefined){
+		$(".errorChk").text("Present conditions of installed water point");
 	}else{
-		var wp_add_qlty="";
-		for(i=1;i<=$("#wp_add_qlty_chk").find("input[type='checkbox']").length;i++){			
-			var wp_add_qlty_ck=$("#wp_add_qlty_"+i).is(":checked")?1:0;			
-			if (i==1){
-				wp_add_qlty=wp_add_qlty_ck;
+		if (present_ins==1){						
+			if($("#wp_add_qlty_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Adequate quality of construction of water point");
 			}else{
-				wp_add_qlty+=","+wp_add_qlty_ck;
-			}			
-		}
-		
-		var wp_func="";
-		for(j=1;j<=$("#wp_func_chk").find("input[type='checkbox']").length;j++){			
-			var wp_func_ck=$("#wp_func_"+j).is(":checked")?1:0;			
-			if (j==1){
-				wp_func=wp_func_ck;
+				var wp_add_qlty="";
+				for(i=1;i<=$("#wp_add_qlty_chk").find("input[type='checkbox']").length;i++){			
+					var wp_add_qlty_ck=$("#wp_add_qlty_"+i).is(":checked")?1:0;			
+					if (i==1){
+						wp_add_qlty=wp_add_qlty_ck;
+					}else{
+						wp_add_qlty+=","+wp_add_qlty_ck;
+					}			
+				}
+				waterStr1=waterStr+"&all_cont="+all_cont+"&wp_add_qlty="+wp_add_qlty+"&wp_func=0,0,0&wp_not_func=0,0";
+				$.mobile.navigate("#pageWater2")				
+			}
+			
+		}else if(present_ins==2){			
+			if($("#wp_func_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Water point functioning but some elements need to be improved");
 			}else{
-				wp_func+=","+wp_func_ck;
-			}			
-		}
-		
-		var wp_not_func="";
-		for(k=1;k<=$("#wp_not_func_chk").find("input[type='checkbox']").length;k++){			
-			var wp_not_func_ck=$("#wp_not_func_"+k).is(":checked")?1:0;			
-			if (k==1){
-				wp_not_func=wp_not_func_ck;
+				var wp_func="";
+				for(j=1;j<=$("#wp_func_chk").find("input[type='checkbox']").length;j++){			
+					var wp_func_ck=$("#wp_func_"+j).is(":checked")?1:0;			
+					if (j==1){
+						wp_func=wp_func_ck;
+					}else{
+						wp_func+=","+wp_func_ck;
+					}			
+				}
+				waterStr1=waterStr+"&all_cont="+all_cont+"&wp_add_qlty=0,0&wp_func="+wp_func+"&wp_not_func=0,0";
+				$.mobile.navigate("#pageWater2")	
+			}
+		}else if(present_ins==3){
+			 if($("#wp_not_func_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Water point not functioning acceptably");		
 			}else{
-				wp_not_func+=","+wp_not_func_ck;
-			}			
-		}
-		
-		waterStr1=waterStr+"&all_cont="+all_cont+"&wp_add_qlty="+wp_add_qlty+"&wp_func="+wp_func+"&wp_not_func="+wp_not_func; 
-		
-		$.mobile.navigate("#pageWater2")
+				var wp_not_func="";
+				for(k=1;k<=$("#wp_not_func_chk").find("input[type='checkbox']").length;k++){			
+					var wp_not_func_ck=$("#wp_not_func_"+k).is(":checked")?1:0;			
+					if (k==1){
+						wp_not_func=wp_not_func_ck;
+					}else{
+						wp_not_func+=","+wp_not_func_ck;
+					}			
+				}
+			waterStr1=waterStr+"&all_cont="+all_cont+"&wp_add_qlty=0,0&wp_func=0,0,0&wp_not_func="+wp_not_func;
+			$.mobile.navigate("#pageWater2")					
+		}		
+	  }
 	}
 }
+
+function chkPresentIns(i){
+		$(".errorChk").text("");
+					
+		if (i==1){
+			$("#wp_add_qlty_chk").show();
+			$("#wp_func_chk").hide();
+			$("#wp_not_func_chk").hide();
+			
+		}else if(i==2){
+			$("#wp_add_qlty_chk").hide();
+			$("#wp_func_chk").show();
+			$("#wp_not_func_chk").hide();
+			
+		}else if(i==3){
+			$("#wp_add_qlty_chk").hide();
+			$("#wp_func_chk").hide();
+			$("#wp_not_func_chk").show();
+		
+		}else{
+			$("#wp_add_qlty_chk").hide();
+			$("#wp_func_chk").hide();
+			$("#wp_not_func_chk").hide();
+		}
+			
+}
+
 
 var waterStr2="";
 function waterNext2(){
 	$(".errorChk").text("");
 	
-	if($("#wp_use_all_time_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Required In use all of the time");		
-	}else if($("#wp_use_most_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Required In use most of the time (used 180 day and above)");	
-	}else if($("#wp_not_use_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Required Not in use (used less than 180 days)");		
+	var wp_use=$("input[name='wp_use']:checked").val();
+	
+	if (wp_use=="" || wp_use==undefined){
+		$(".errorChk").text("Water point use");
 	}else{
-		var wp_use_all_time="";
-		for(i=1;i<=$("#wp_use_all_time_chk").find("input[type='checkbox']").length;i++){			
-			var wp_use_all_time_ck=$("#wp_use_all_time_"+i).is(":checked")?1:0;			
-			if (i==1){
-				wp_use_all_time=wp_use_all_time_ck;
+		if (wp_use==1){
+			if($("#wp_use_all_time_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Required In use all of the time");		
 			}else{
-				wp_use_all_time+=","+wp_use_all_time_ck;
-			}			
-		}
-		
-		var wp_use_most="";
-		for(j=1;j<=$("#wp_use_most_chk").find("input[type='checkbox']").length;j++){			
-			var wp_use_most_ck=$("#wp_use_most_"+j).is(":checked")?1:0;			
-			if (j==1){
-				wp_use_most=wp_use_most_ck;
+				var wp_use_all_time="";
+				for(i=1;i<=$("#wp_use_all_time_chk").find("input[type='checkbox']").length;i++){			
+					var wp_use_all_time_ck=$("#wp_use_all_time_"+i).is(":checked")?1:0;			
+					if (i==1){
+						wp_use_all_time=wp_use_all_time_ck;
+					}else{
+						wp_use_all_time+=","+wp_use_all_time_ck;
+					}			
+				}
+				waterStr2=waterStr1+"&wp_use_all_time="+wp_use_all_time+"&wp_use_most=0,0,0,0&wp_not_use=0,0,0,0,0"
+				$.mobile.navigate("#pageHygiene")				
+			}
+			
+		}else if (wp_use==2){
+			if($("#wp_use_most_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Required In use most of the time (used 180 day and above)");	
 			}else{
-				wp_use_most+=","+wp_use_most_ck;
-			}			
-		}
-		
-		var wp_not_use="";
-		for(k=1;k<=$("#wp_not_use_chk").find("input[type='checkbox']").length;k++){			
-			var wp_not_use_ck=$("#wp_not_use_"+k).is(":checked")?1:0;			
-			if (k==1){
-				wp_not_use=wp_not_use_ck;
+				var wp_use_most="";
+				for(j=1;j<=$("#wp_use_most_chk").find("input[type='checkbox']").length;j++){			
+					var wp_use_most_ck=$("#wp_use_most_"+j).is(":checked")?1:0;			
+					if (j==1){
+						wp_use_most=wp_use_most_ck;
+					}else{
+						wp_use_most+=","+wp_use_most_ck;
+					}			
+				}
+				waterStr2=waterStr1+"&wp_use_all_time=0,0,0,0,0&wp_use_most="+wp_use_most+"&wp_not_use=0,0,0,0,0"
+				$.mobile.navigate("#pageHygiene")				
+			}
+			
+		}else if (wp_use==3){
+			if($("#wp_not_use_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Required Not in use (used less than 180 days)");		
 			}else{
-				wp_not_use+=","+wp_not_use_ck;
-			}			
+				var wp_not_use="";
+				for(k=1;k<=$("#wp_not_use_chk").find("input[type='checkbox']").length;k++){			
+					var wp_not_use_ck=$("#wp_not_use_"+k).is(":checked")?1:0;			
+					if (k==1){
+						wp_not_use=wp_not_use_ck;
+					}else{
+						wp_not_use+=","+wp_not_use_ck;
+					}			
+				}
+			}
+				
+			waterStr2=waterStr1+"&wp_use_all_time=0,0,0,0,0&wp_use_most=0,0,0,0&wp_not_use="+wp_not_use
+			$.mobile.navigate("#pageHygiene")
 		}
-		
-		waterStr2=waterStr1+"&wp_use_all_time="+wp_use_all_time+"&wp_use_most="+wp_use_most+"&wp_not_use="+wp_not_use
-					
-		$.mobile.navigate("#pageHygiene")
 	}
+	
+		
 }
+
+function chkWpUse(i){
+		$(".errorChk").text("");
+					
+		if (i==1){
+			$("#wp_use_all_time_chk").show();
+			$("#wp_use_most_chk").hide();
+			$("#wp_not_use_chk").hide();
+			
+		}else if(i==2){
+			$("#wp_use_all_time_chk").hide();
+			$("#wp_use_most_chk").show();
+			$("#wp_not_use_chk").hide();
+			
+		}else if(i==3){
+			$("#wp_use_all_time_chk").hide();
+			$("#wp_use_most_chk").hide();
+			$("#wp_not_use_chk").show();
+		
+		}else{
+			$("#wp_use_all_time_chk").hide();
+			$("#wp_use_most_chk").hide();
+			$("#wp_not_use_chk").hide();
+		}
+			
+}
+
+
+
+
 
 // san
 var sanStr="";
@@ -766,15 +880,17 @@ function syncDataSurvey(){
 							//----------------
 							$('form').trigger("reset");
 							
-							//$("#ach_lat").val("");
-							//$("#ach_long").val("");
+							$("#ach_lat").val("");
+							$("#ach_long").val("");
+							$("#myImageA").val("");							
 							//$("input:radio").removeAttr('checked');
 							//$("input:checkbox").removeAttr('checked');
 							//$("#cbo_combo").val("");
 							
 							achPlanId="";
 							achCBOid="";
-							$(".errorChk").text('Successfully Submitted');
+							$(".errorChk").text("");
+							$(".sucChk").text('Successfully Submitted');
 							$("#btn_ach_save").hide();
 							$("#btn_take_pic").hide();
 							$("#btn_ach_lat_long").hide();
@@ -881,20 +997,6 @@ navigator.app.exitApp();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //---------------------report Type list	
 
 //------------------------------domain list 
@@ -964,289 +1066,6 @@ function achDataNext(){
 	}
 }
 
-
-//-----------------------------achivement data people support
-function achivementDataPSupport(){
-	$(".errorChk").text("");	
-	
-	var now = new Date();
-	var month=now.getUTCMonth()+1;
-	if (month<10){
-		month="0"+month
-		}
-	var day=now.getUTCDate();
-	if (day<10){
-		day="0"+day
-		}
-		
-	var year=now.getUTCFullYear();
-	
-	var currentDay = new Date(year+ "-" + month + "-" + day);
-	
-	
-			
-	var ach_word=$("#achWord").val();	
-	
-	//sanitation/ water
-	var ach_cluster=$("#achClusterID").val();	
-	
-	// hh id
-	var ach_id=$("#achID").val();
-	
-	
-	//hand wash
-	var hnd_event=$("input[name='hnd_event']:checked").val();
-	
-		
-	var population=$("#population").val();
-	var wpHousehold=$("#wpHousehold").val();
-	var household=$("#household").val();
-	var male=$("#male").val();
-	var female=$("#female").val();
-	var girlsUnder=$("#girlsUnder").val();
-	var boysUnder=$("#boysUnder").val();
-	var girls=$("#girls").val();
-	var boys=$("#boys").val();
-	var dapMale=$("#dapMale").val();
-	var dapFemale=$("#dapFemale").val();
-	
-	
-	// for water quality test 
-	var ethFemale=$("#ethFemale").val();
-	var ethMale=$("#ethMale").val(); 
-	var poorA=$("#poorA").val();
-		
-	var poorB=$("#poorB").val();
-	var poorC=$("#poorC").val();
-	var poorEx=$("#poorEx").val(); 
-	
-	//for sanitation 
-	var latType=$("#latType").val();	
-	var sanCompDate=$("#san_conp_date").val();	
-		
-		
-	
-	//water	
-	var wpTechnology=$("#wp_tech").val();
-	var WpCompDate=$("#wp_conp_date").val();
-		
-	
-
-	
-	if(male==''){
-			male=0;
-			}
-	
-	if(female==''){
-			female=0;
-			}
-			
-	if(girlsUnder==''){
-			girlsUnder=0;
-			}
-			
-	if(boysUnder==''){
-			boysUnder=0;
-			}
-			
-	if(girls==''){
-			girls=0;
-			}
-			
-	if(boys==''){
-			boys=0;
-			}
-	if(dapMale==''){
-			dapMale=0;
-			}
-			
-	if(dapFemale==''){
-			dapFemale=0;
-			}
-	
-	if(population==''){
-		population=0;
-		}
-	
-	if (wpHousehold==''){
-		wpHousehold=0;
-		}
-		
-	if (household==''){
-		household=0;
-		}
-	
-
-	
-	if (ach_word=="" ){		
-		$(".errorChk").text("Required Ward ");
-	}else{
-			if (achPlanSector!="Handwash" && ach_cluster==""){
-				$(".errorChk").text("Required Cluster ");						
-			}else{
-				if (achPlanSector!="Handwash" && ach_id==""){
-					$(".errorChk").text("Required HH ID/ Water point ID");						
-				}else{
-					/*if (isNaN(ach_id)==true){
-						$(".errorChk").text("HH ID/ Water point ID is Number and max three digit ");
-					}else{
-						}*/	
-						
-					if (ach_id.toString().length>3){							
-						$(".errorChk").text("HH ID/ Water point ID is Number and maximum 3 digit ");
-					}else{						
-						if (ach_id.toString().length==1){
-							ach_id='00'+ach_id
-						}else if (ach_id.toString().length==2){
-							ach_id='0'+ach_id
-							}
-					 	
-					
-					if (achPlanSector=="Sanitation" && latType==""){
-						$(".errorChk").text("Required Latrine Type");						
-					}else{
-						if (achPlanSector=="Sanitation" && sanCompDate==""){
-							$(".errorChk").text("Required Completion Date");						
-						}else{
-							var chkSanCompDate = new Date(sanCompDate);
-							if (chkSanCompDate>currentDay){
-								$(".errorChk").text("Required Completion Date Less Then Today");
-							}else{							
-								if (achPlanSector=="Water" && wpTechnology==""){
-									$(".errorChk").text("Required Technology");						
-								}else{
-									if (achPlanSector=="Water" && WpCompDate==""){
-										$(".errorChk").text("Required Water Point Completion Date");						
-									}else{
-										var chkWpCompDate=new Date(WpCompDate);
-										if (chkWpCompDate>currentDay){
-											$(".errorChk").text("Required Water Point Completion Date Less Then Today");
-										}else{
-											var totalMF=eval(male)+eval(female)+eval(girlsUnder)+eval(boysUnder)+eval(girls)+eval(boys);
-											var population=eval(totalMF);
-											//var totalPoor=eval(poorA)+eval(poorB)+eval(poorC)+eval(poorEx);
-											// chk population
-											//alert(population);
-											
-											if (population<=0){					
-												$(".errorChk").text("Required Population ");
-											}else if (achPlanSector=="Sanitation" && population>15){
-												$(".errorChk").text("Maximum Population 15");
-											}else if (achPlanSector=="SanitationCommunity" && population>80){
-												$(".errorChk").text("Maximum Population 80");
-											}else{
-												
-												if (latType=="Shared" && household<=0 ){
-													$(".errorChk").text("Required Household");
-												}else if (achPlanSector=="SanitationCommunity" && household>20){
-													$(".errorChk").text("Household maximum 20");
-												}else{												
-												
-													achWord=ach_word																		
-													achCluster=ach_cluster
-													
-													//hand wash
-													achHndEvent=hnd_event
-													
-													//hh id
-													achID=ach_id
-													//achCBOid=cbo_id
-													
-													achPopulation=population
-													achWpHousehold=wpHousehold
-													
-													achHousehold=household
-													achMale=male
-													achFemale=female
-													achGirlsUnder=girlsUnder
-													achBoysUnder=boysUnder
-													achGirls=girls
-													achBoys=boys
-													achDapMale=dapMale
-													achDapFemale=dapFemale
-													achPoorA=poorA
-													achPoorB=poorB
-													achPoorC=0
-													achPoorEx=poorEx
-													achEthMale=0
-													achEthFemale=ethFemale
-													
-																
-													achLatType=latType
-													achComDate=sanCompDate
-													
-													achWpTech=wpTechnology;
-													achWpComDate=WpCompDate;
-													
-													var ach_plan_id=$("input[name='activity_select']:checked").val();
-													//alert(ach_plan_id);
-													
-													$(".errorChk").text("");
-													
-													
-													var url="#inPhoto";
-													$.mobile.navigate(url);
-													//$(location).attr('href',url);
-												}//chk hh
-											}//population
-										}//wp date chk
-									}// wp completion date
-							 }//technology
-					  }// chk completion date
-					}//lat completion date						
-				}//lat type	
-			  }//chk hh ID / WP ID length
-			}//chk hhID/ wp ID
-		  }//cluster
-		}
-	}
-
-
-//------------------ show population
-function totalPopulation(){
-	var male=$("#male").val();
-	var female=$("#female").val();
-	var girlsUnder=$("#girlsUnder").val();
-	var boysUnder=$("#boysUnder").val();
-	var girls=$("#girls").val();
-	var boys=$("#boys").val();
-	
-	if(male==''){
-			male=0;
-			}
-	if(female==''){
-			female=0;
-			}
-	if(girlsUnder==''){
-			girlsUnder=0;
-			}
-	if(boysUnder==''){
-			boysUnder=0;
-			}
-	if(girls==''){
-			girls=0;
-			}
-	if(boys==''){
-			boys=0;
-			}
-			
-	var totalMF=eval(male)+eval(female)+eval(girlsUnder)+eval(boysUnder)+eval(girls)+eval(boys);
-	
-	$("#population").val(totalMF);
-	}
-
-
-function totalHH(){
-	var latType=$("#latType").val();
-	if(latType=="Shared"){
-		$("#sharedLatHH").show();
-	}else{
-		$("#sharedLatHH").hide();
-		}	
-	}
-
-
-	
 //-----------------------------planid,CBO ID, ID, Population, Household,male,Female,girls Under, boys Under,girls,boys,DAP male, DAP Female,Poor A,Poor B ,Poor C, Poor D, Ethnic Male, Ethnic Female, service Recepent, service recepent value
 function achiveDataSave(){
 		$(".errorChk").text("");		

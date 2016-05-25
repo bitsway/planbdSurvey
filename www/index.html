@@ -736,8 +736,13 @@
         </ul>
         
 		<ul data-role="listview" data-inset="true">
-            <li style="background-color:#EBEBEB;">Present conditions of installed water point</li>
-            <li style="background-color:#F2F2F2;">Adequate quality of construction of water point<sup class="reqField">*</sup></li>                
+            <li style="background-color:#EBEBEB;">Present conditions of installed water point<sup class="reqField">*</sup></li>
+            <li style="background-color:#F2F2F2;">
+            	<fieldset data-role="controlgroup" data-mini="true" onclick="chkPresentIns(1)" >
+                    <input name="present_ins" id="1" value="1" type="radio">
+                     <label for="1">Adequate quality of construction of water point</label>
+                </fieldset>
+            </li>                
             <li class="ui-field-contain" id="wp_add_qlty_chk">
                 <fieldset data-role="controlgroup" data-mini="true" >
                     <input name="wp_add_qlty_1" id="wp_add_qlty_1" type="checkbox">
@@ -746,7 +751,12 @@
                     <label for="wp_add_qlty_2">Water quality tested and portable</label>                        
                 </fieldset>
             </li>               
-            <li style="background-color:#F2F2F2;">Water point functioning but some elements need to be improved<sup class="reqField">*</sup></li>                
+            <li style="background-color:#F2F2F2;">
+            	<fieldset data-role="controlgroup" data-mini="true" onclick="chkPresentIns(2)" >
+                    <input name="present_ins" id="2" value="2" type="radio">
+                     <label for="2">Water point functioning but some elements need to be improved</label>
+                </fieldset>
+            </li>                
             <li class="ui-field-contain" id="wp_func_chk">
                 <fieldset data-role="controlgroup" data-mini="true">
                     <input name="wp_func_1" id="wp_func_1" type="checkbox">
@@ -757,7 +767,12 @@
                     <label for="wp_func_3">Loose or missing bolts in pumphead that can be easily replaced</label>                                                
                 </fieldset>
             </li>
-            <li style="background-color:#F2F2F2;">Water point not functioning acceptably<sup class="reqField">*</sup></li>                
+            <li style="background-color:#F2F2F2;">
+            	<fieldset data-role="controlgroup" data-mini="true" onclick="chkPresentIns(3)" >
+                    <input name="present_ins" id="3" value="3" type="radio">
+                     <label for="3">Water point not functioning acceptably</label>
+                </fieldset>
+            </li>                
             <li class="ui-field-contain" id="wp_not_func_chk">
                 <fieldset data-role="controlgroup" data-mini="true">
                     <input name="wp_not_func_1" id="wp_not_func_1" value="1" type="checkbox">
@@ -792,8 +807,13 @@
          </ul>
     	<form >
         <ul data-role="listview" data-inset="true">
-        		<li style="background-color:#EBEBEB;">Water point use </li>
-                <li style="background-color:#F2F2F2;">In use all of the time<sup class="reqField">*</sup></li>                
+        		<li style="background-color:#EBEBEB;">Water point use<sup class="reqField">*</sup></li>
+                <li style="background-color:#F2F2F2;">
+                	<fieldset data-role="controlgroup" data-mini="true" onclick="chkWpUse(1)" >
+                        <input name="wp_use" id="1" value="1" type="radio">
+                         <label for="1">In use all of the time</label>
+                    </fieldset>
+                </li>                
                 <li class="ui-field-contain" id="wp_use_all_time_chk">
                     <fieldset data-role="controlgroup" data-mini="true">
                         <input name="wp_use_all_time_1" id="wp_use_all_time_1" type="checkbox">
@@ -808,7 +828,12 @@
                         <label for="wp_use_all_time_5">Get water round the yea</label>                         
                     </fieldset>
                 </li>
-                <li style="background-color:#F2F2F2;">In use most of the time (used 180 day and above)<sup class="reqField">*</sup></li>                
+                <li style="background-color:#F2F2F2;">
+                	<fieldset data-role="controlgroup" data-mini="true" onclick="chkWpUse(2)" >
+                        <input name="wp_use" id="2" value="2" type="radio">
+                         <label for="2">In use most of the time (used 180 day and above)</label>
+                    </fieldset>
+                </li>                
                 <li class="ui-field-contain" id="wp_use_most_chk">
                     <fieldset data-role="controlgroup" data-mini="true">
                         <input name="wp_use_most_1" id="wp_use_most_1" type="checkbox">
@@ -821,7 +846,12 @@
                         <label for="wp_use_most_4">Far from homestead</label>                       
                     </fieldset>
                 </li>
-               	<li style="background-color:#F2F2F2;">Not in use (used less than 180 days)<sup class="reqField">*</sup></li>                
+               	<li style="background-color:#F2F2F2;">
+                	<fieldset data-role="controlgroup" data-mini="true" onclick="chkWpUse(3)" >
+                        <input name="wp_use" id="3" value="3" type="radio">
+                         <label for="3">Not in use (used less than 180 days)</label>
+                    </fieldset>
+                </li>                
                 <li class="ui-field-contain" id="wp_not_use_chk">
                     <fieldset data-role="controlgroup" data-mini="true">
                         <input name="wp_not_use_1" id="wp_not_use_1" type="checkbox">
@@ -1238,7 +1268,8 @@
         </form>
     	<a data-role="button" id="btn_ach_lat_long" onClick="getLocationInfoAch();" class="ui-btn" >Confirm Location</a>
         
-        <div class="errorChk"></div>       
+        <div class="errorChk"></div>
+        <div class="sucChk" style="color:#0C0;"></div>       
         <br/><br/>
         <!--<a data-role="button" id="btn_ach_save" onClick="achiveDataSave();" class="ui-btn" >Save</a>-->
 		<br/>
