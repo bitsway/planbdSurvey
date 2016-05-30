@@ -925,8 +925,13 @@
         </ul>
         
         <ul data-role="listview" data-inset="true">
-        		<li style="background-color:#EBEBEB;">Latrine condition </li>
-               	<li style="background-color:#F2F2F2;">Adequate quality (state reason for adequate quality)<sup class="reqField">*</sup></li>                
+        		<li style="background-color:#EBEBEB;">Latrine condition<sup class="reqField">*</sup></li>
+               	<li style="background-color:#F2F2F2;">
+                	<fieldset data-role="controlgroup" data-mini="true"  >
+                        <input name="sp_con" id="1" value="1" type="radio" onclick="chkSpCon(1)">
+                         <label for="1">Adequate quality (state reason for adequate quality)</label>
+                    </fieldset>
+                </li>                               
                 <li class="ui-field-contain" id="s_adeq_qlty_chk">
                     <fieldset data-role="controlgroup" data-mini="true">
                         <input name="s_adeq_qlty_1" id="s_adeq_qlty_1" type="checkbox">
@@ -945,7 +950,12 @@
                         <label for="s_adeq_qlty_7"> Odor free</label>                         
                     </fieldset>
                 </li>
-                <li style="background-color:#F2F2F2;">Partially adequate quality: (state reason for partial quality)<sup class="reqField">*</sup></li>                
+                <li style="background-color:#F2F2F2;">
+                	<fieldset data-role="controlgroup" data-mini="true"  >
+                        <input name="sp_con" id="2" value="2" type="radio" onclick="chkSpCon(2)">
+                         <label for="2">Partially adequate quality: (state reason for partial quality)</label>
+                    </fieldset>
+                </li>                             
                 <li class="ui-field-contain" id="s_par_adeq_qlty_chk">
                     <fieldset data-role="controlgroup" data-mini="true">
                         <input name="s_par_adeq_qlty_1" id="s_par_adeq_qlty_1" value="1" type="checkbox">
@@ -954,7 +964,12 @@
                         <label for="s_par_adeq_qlty_2"> Slab needs minor repairs but safety of users not affected</label>                                              
                     </fieldset>
                 </li>
-                <li style="background-color:#F2F2F2;">Inadequate quality of latrine: (state reason for inadequate quality)<sup class="reqField">*</sup></li>                
+                 <li style="background-color:#F2F2F2;">
+                	<fieldset data-role="controlgroup" data-mini="true"  >
+                        <input name="sp_con" id="3" value="3" type="radio" onclick="chkSpCon(3)">
+                         <label for="3">Inadequate quality of latrine: (state reason for inadequate quality)</label>
+                    </fieldset>
+                </li>               
                 <li class="ui-field-contain" id="s_inadeq_qlty_chk">
                     <fieldset data-role="controlgroup" data-mini="true">
                         <input name="s_inadeq_qlty_1" id="s_inadeq_qlty_1" type="checkbox">
@@ -992,8 +1007,13 @@
         
         <form >
         <ul data-role="listview" data-inset="true">
-        		<li style="background-color:#EBEBEB;">Latrine use</li>
-               	<li style="background-color:#F2F2F2;">In use all of the time (state the reason for use)<sup class="reqField">*</sup></li>                
+        		<li style="background-color:#EBEBEB;">Latrine use<sup class="reqField">*</sup></li>
+                <li style="background-color:#F2F2F2;">
+                	<fieldset data-role="controlgroup" data-mini="true"  >
+                        <input name="sp_use" id="1" value="1" type="radio" onclick="chkSpUse(1)">
+                         <label for="1">In use all of the time (state the reason for use)</label>
+                    </fieldset>
+                </li>               	              
                 <li class="ui-field-contain" id="s_in_use_chk">
                     <fieldset data-role="controlgroup" data-mini="true">
                         <input name="s_in_use_1" id="s_in_use_1" type="checkbox">
@@ -1002,7 +1022,12 @@
                         <label for="s_in_use_2"> Good for environment and health</label>                                              
                     </fieldset>
                 </li>
-                <li style="background-color:#F2F2F2;">In use most of the time (state the reason for partial use)<sup class="reqField">*</sup></li>                
+                <li style="background-color:#F2F2F2;">
+                	<fieldset data-role="controlgroup" data-mini="true"  >
+                        <input name="sp_use" id="2" value="2" type="radio" onclick="chkSpUse(2)">
+                         <label for="2">In use most of the time (state the reason for partial use)</label>
+                    </fieldset>
+                </li>                               
                 <li class="ui-field-contain" id="s_in_use_most_chk">
 
                     <fieldset data-role="controlgroup" data-mini="true">
@@ -1016,9 +1041,13 @@
                         <label for="s_in_use_most_4"> Not use during winter season</label>                                              
                     </fieldset>
                 </li>
-                <li style="background-color:#F2F2F2;">Not in use (state the reason for not use)<sup class="reqField">*</sup></li>                
+                <li style="background-color:#F2F2F2;">
+                	<fieldset data-role="controlgroup" data-mini="true"  >
+                        <input name="sp_use" id="3" value="3" type="radio" onclick="chkSpUse(3)">
+                         <label for="3">Not in use (state the reason for not use)</label>
+                    </fieldset>
+                </li>                
                 <li class="ui-field-contain" id="s_not_use_chk">
-
                     <fieldset data-role="controlgroup" data-mini="true">
                         <input name="s_not_use_1" id="s_not_use_1" type="checkbox">
                         <label for="s_not_use_1"> Used as storeroom</label>

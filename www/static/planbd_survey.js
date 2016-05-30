@@ -56,7 +56,15 @@ $(document).ready(function(){
 	
 	$("#wp_use_all_time_chk").hide();
 	$("#wp_use_most_chk").hide();
-	$("#wp_not_use_chk").hide();
+	$("#wp_not_use_chk").hide();	
+		
+	$("#s_adeq_qlty_chk").hide();
+	$("#s_par_adeq_qlty_chk").hide();
+	$("#s_inadeq_qlty_chk").hide();
+	
+	$("#s_in_use_chk").hide();
+	$("#s_in_use_most_chk").hide();
+	$("#s_not_use_chk").hide();
 	//$("input:text,select").val('');
 	//$("input:checkbox,input:radio").removeAttr('checked');
 		
@@ -121,6 +129,8 @@ function menuClick(){
 	$('form').trigger("reset");	
 	$(".errorChk").text("");
 	$(".sucChk").text("");
+	$("#collectorName").val("");
+	imagePathA="";
 	//$("#collectorName").val("");	
 	//$("input:text,select").val('');
 	//$("input:checkbox,input:radio").removeAttr('checked');	
@@ -134,6 +144,13 @@ function menuClick(){
 	$("#wp_use_most_chk").hide();
 	$("#wp_not_use_chk").hide();
 	
+	$("#s_adeq_qlty_chk").hide();
+	$("#s_par_adeq_qlty_chk").hide();
+	$("#s_inadeq_qlty_chk").hide();
+	
+	$("#s_in_use_chk").hide();
+	$("#s_in_use_most_chk").hide();
+	$("#s_not_use_chk").hide();
 	
 	$("#btn_take_pic").show();
 	$("#btn_ach_lat_long").show();
@@ -574,17 +591,14 @@ function sanitationNext(){
 	$(".errorChk").text("");
 	
 	var s_lat_type=$("#s_lat_type").val();
+	var sp_con=$("input[name='sp_con']:checked").val();
 	
 	if (s_lat_type=="" || s_lat_type==undefined){
 		$(".errorChk").text("Required Type of latrine provided");
 	}else if($("#has_lat_hh_chk").find("input[type='checkbox']:checked").length==0){
 		$(".errorChk").text("Required Has latrine upgraded by household? (superstructure and Sub structure)");		
-	}else if($("#s_adeq_qlty_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Required Adequate quality (state reason for adequate quality)");	
-	}else if($("#s_par_adeq_qlty_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Required  Partially adequate quality: (state reason for partial quality)");
-	}else if($("#s_inadeq_qlty_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Required Inadequate quality of latrine: (state reason for inadequate quality)");
+	}else if (sp_con=="" || sp_con==undefined){
+		$(".errorChk").text("Required latrine condition");
 	}else{
 		var has_lat_hh="";
 		for(i=1;i<=$("#has_lat_hh_chk").find("input[type='checkbox']").length;i++){			
@@ -596,88 +610,194 @@ function sanitationNext(){
 			}			
 		}
 		
-		var s_adeq_qlty="";
-		for(j=1;j<=$("#s_adeq_qlty_chk").find("input[type='checkbox']").length;j++){			
-			var s_adeq_qlty_ck=$("#s_adeq_qlty_"+j).is(":checked")?1:0;			
-			if (j==1){
-				s_adeq_qlty=s_adeq_qlty_ck;
+				
+		if (sp_con==1){
+			if($("#s_adeq_qlty_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Required Adequate quality (state reason for adequate quality)");	
 			}else{
-				s_adeq_qlty+=","+s_adeq_qlty_ck;
-			}			
-		}
+				var s_adeq_qlty="";
+				for(j=1;j<=$("#s_adeq_qlty_chk").find("input[type='checkbox']").length;j++){			
+					var s_adeq_qlty_ck=$("#s_adeq_qlty_"+j).is(":checked")?1:0;			
+					if (j==1){
+						s_adeq_qlty=s_adeq_qlty_ck;
+					}else{
+						s_adeq_qlty+=","+s_adeq_qlty_ck;
+					}			
+				}
+				sanStr=dtStr+"&s_lat_type="+s_lat_type+"&has_lat_hh="+has_lat_hh+"&s_adeq_qlty="+s_adeq_qlty+"&s_par_adeq_qlty=0,0&s_inadeq_qlty=0,0,0";
+				$.mobile.navigate("#pageSanitation1")
+							
+			}
 		
-		var s_par_adeq_qlty="";
-		for(k=1;k<=$("#s_par_adeq_qlty_chk").find("input[type='checkbox']").length;k++){			
-			var s_par_adeq_qlty_ck=$("#s_par_adeq_qlty_"+k).is(":checked")?1:0;			
-			if (k==1){
-				s_par_adeq_qlty=s_par_adeq_qlty_ck;
+		
+		}else if(sp_con==2){
+			if($("#s_par_adeq_qlty_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Required  Partially adequate quality: (state reason for partial quality)");
 			}else{
-				s_par_adeq_qlty+=","+s_par_adeq_qlty_ck;
-			}			
-		}
+				var s_par_adeq_qlty="";
+				for(k=1;k<=$("#s_par_adeq_qlty_chk").find("input[type='checkbox']").length;k++){			
+					var s_par_adeq_qlty_ck=$("#s_par_adeq_qlty_"+k).is(":checked")?1:0;			
+					if (k==1){
+						s_par_adeq_qlty=s_par_adeq_qlty_ck;
+					}else{
+						s_par_adeq_qlty+=","+s_par_adeq_qlty_ck;
+					}			
+				}
+				sanStr=dtStr+"&s_lat_type="+s_lat_type+"&has_lat_hh="+has_lat_hh+"&s_adeq_qlty=0,0,0,0,0,0,0&s_par_adeq_qlty="+s_par_adeq_qlty+"&s_inadeq_qlty=0,0,0";
+				$.mobile.navigate("#pageSanitation1")
+					
+				
+			}
 		
-		var s_inadeq_qlty="";
-		for(l=1;l<=$("#s_inadeq_qlty_chk").find("input[type='checkbox']").length;l++){			
-			var s_inadeq_qlty_ck=$("#s_inadeq_qlty_"+l).is(":checked")?1:0;			
-			if (l==1){
-				s_inadeq_qlty=s_inadeq_qlty_ck;
+		}else if(sp_con==3){
+			if($("#s_inadeq_qlty_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Required Inadequate quality of latrine: (state reason for inadequate quality)");
 			}else{
-				s_inadeq_qlty+=","+s_inadeq_qlty_ck;
-			}			
+				var s_inadeq_qlty="";
+				for(l=1;l<=$("#s_inadeq_qlty_chk").find("input[type='checkbox']").length;l++){			
+					var s_inadeq_qlty_ck=$("#s_inadeq_qlty_"+l).is(":checked")?1:0;			
+					if (l==1){
+						s_inadeq_qlty=s_inadeq_qlty_ck;
+					}else{
+						s_inadeq_qlty+=","+s_inadeq_qlty_ck;
+					}			
+				}
+				sanStr=dtStr+"&s_lat_type="+s_lat_type+"&has_lat_hh="+has_lat_hh+"&s_adeq_qlty=0,0,0,0,0,0,0&s_par_adeq_qlty=0,0&s_inadeq_qlty="+s_inadeq_qlty;
+				$.mobile.navigate("#pageSanitation1")
+								
+			}
+			
 		}
-		
-		sanStr=dtStr+"&s_lat_type="+s_lat_type+"&has_lat_hh="+has_lat_hh+"&s_adeq_qlty="+s_adeq_qlty+"&s_par_adeq_qlty="+s_par_adeq_qlty+"&s_inadeq_qlty="+s_inadeq_qlty;
-		
-	$.mobile.navigate("#pageSanitation1")
-	}
+	
+	}	
+	
 }
+
+
+function chkSpCon(i){
+		$(".errorChk").text("");
+					
+		if (i==1){
+			$("#s_adeq_qlty_chk").show();
+			$("#s_par_adeq_qlty_chk").hide();
+			$("#s_inadeq_qlty_chk").hide();
+			
+		}else if(i==2){
+			$("#s_adeq_qlty_chk").hide();
+			$("#s_par_adeq_qlty_chk").show();
+			$("#s_inadeq_qlty_chk").hide();
+			
+		}else if(i==3){
+			$("#s_adeq_qlty_chk").hide();
+			$("#s_par_adeq_qlty_chk").hide();
+			$("#s_inadeq_qlty_chk").show();
+		
+		}else{
+			$("#s_adeq_qlty_chk").hide();
+			$("#s_par_adeq_qlty_chk").hide();
+			$("#s_inadeq_qlty_chk").hide();
+		}
+			
+}
+
+
+
+
+
 
 var sanStr1="";
 function sanitationNext1(){
 	$(".errorChk").text("");
 	
-	if($("#s_in_use_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Required In use all of the time (state the reason for use)");		
-	}else if($("#s_in_use_most_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Required In use most of the time (state the reason for partial use)");	
-	}else if($("#s_not_use_chk").find("input[type='checkbox']:checked").length==0){
-		$(".errorChk").text("Required Not in use (state the reason for not use)");		
+	var sp_use=$("input[name='sp_use']:checked").val();
+	
+	if (sp_use=="" || sp_use==undefined){
+		$(".errorChk").text("Required Latrine use");
 	}else{
-		var s_in_use="";
-		for(i=1;i<=$("#s_in_use_chk").find("input[type='checkbox']").length;i++){			
-			var s_in_use_ck=$("#s_in_use_"+i).is(":checked")?1:0;			
-			if (i==1){
-				s_in_use=s_in_use_ck;
+		if (sp_use==1){
+			if($("#s_in_use_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Required In use all of the time (state the reason for use)");		
 			}else{
-				s_in_use+=","+s_in_use_ck;
-			}			
-		}
-		
-		var s_in_use_most="";
-		for(j=1;j<=$("#s_in_use_most_chk").find("input[type='checkbox']").length;j++){			
-			var s_in_use_most_ck=$("#s_in_use_most_"+j).is(":checked")?1:0;			
-			if (j==1){
-				s_in_use_most=s_in_use_most_ck;
+				var s_in_use="";
+				for(i=1;i<=$("#s_in_use_chk").find("input[type='checkbox']").length;i++){			
+					var s_in_use_ck=$("#s_in_use_"+i).is(":checked")?1:0;			
+					if (i==1){
+						s_in_use=s_in_use_ck;
+					}else{
+						s_in_use+=","+s_in_use_ck;
+					}			
+				}
+				
+				sanStr1=sanStr+"&s_in_use="+s_in_use+"&s_in_use_most=0,0,0,0&s_not_use=0,0,0,0";		
+				$.mobile.navigate("#pageHygiene")			
+			}
+			
+		}else if(sp_use==2){
+			if($("#s_in_use_most_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Required In use most of the time (state the reason for partial use)");	
 			}else{
-				s_in_use_most+=","+s_in_use_most_ck;
-			}			
-		}
-		
-		var s_not_use="";
-		for(k=1;k<=$("#s_not_use_chk").find("input[type='checkbox']").length;k++){			
-			var s_not_use_ck=$("#s_not_use_"+k).is(":checked")?1:0;			
-			if (k==1){
-				s_not_use=s_not_use_ck;
+				var s_in_use_most="";
+				for(j=1;j<=$("#s_in_use_most_chk").find("input[type='checkbox']").length;j++){			
+					var s_in_use_most_ck=$("#s_in_use_most_"+j).is(":checked")?1:0;			
+					if (j==1){
+						s_in_use_most=s_in_use_most_ck;
+					}else{
+						s_in_use_most+=","+s_in_use_most_ck;
+					}			
+				}
+				sanStr1=sanStr+"&s_in_use=0,0&s_in_use_most="+s_in_use_most+"&s_not_use=0,0,0,0";		
+				$.mobile.navigate("#pageHygiene")				
+			}
+			
+		}else if(sp_use==3){
+			 if($("#s_not_use_chk").find("input[type='checkbox']:checked").length==0){
+				$(".errorChk").text("Required Not in use (state the reason for not use)");		
 			}else{
-				s_not_use+=","+s_not_use_ck;
-			}			
-		}
-		
-		sanStr1=sanStr+"&s_in_use="+s_in_use+"&s_in_use_most="+s_in_use_most+"&s_not_use="+s_not_use
-		
-		$.mobile.navigate("#pageHygiene")
-	}
+				var s_not_use="";
+				for(k=1;k<=$("#s_not_use_chk").find("input[type='checkbox']").length;k++){			
+					var s_not_use_ck=$("#s_not_use_"+k).is(":checked")?1:0;			
+					if (k==1){
+						s_not_use=s_not_use_ck;
+					}else{
+						s_not_use+=","+s_not_use_ck;
+					}			
+				}
+				sanStr1=sanStr+"&s_in_use=0,0&s_in_use_most=0,0,0,0&s_not_use="+s_not_use;		
+				$.mobile.navigate("#pageHygiene")				
+			}		
+		}	
+	}	
 }
+
+
+function chkSpUse(i){
+		$(".errorChk").text("");
+					
+		if (i==1){
+			$("#s_in_use_chk").show();
+			$("#s_in_use_most_chk").hide();
+			$("#s_not_use_chk").hide();
+			
+		}else if(i==2){
+			$("#s_in_use_chk").hide();
+			$("#s_in_use_most_chk").show();
+			$("#s_not_use_chk").hide();
+			
+		}else if(i==3){
+			$("#s_in_use_chk").hide();
+			$("#s_in_use_most_chk").hide();
+			$("#s_not_use_chk").show();
+		
+		}else{
+			$("#s_in_use_chk").hide();
+			$("#s_in_use_most_chk").hide();
+			$("#s_not_use_chk").hide();
+		}
+			
+}
+
+
+
 
 
 //hygiene
@@ -845,6 +965,7 @@ function syncDataSurvey(){
 			}
 			
 			
+			
 			$.ajax({
 					type: 'POST',
 					url:tmpUrl,					   
@@ -879,6 +1000,8 @@ function syncDataSurvey(){
 							}
 							//----------------
 							$('form').trigger("reset");
+							
+							$("#collectorName").val("");
 							
 							$("#ach_lat").val("");
 							$("#ach_long").val("");
