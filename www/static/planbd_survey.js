@@ -94,7 +94,7 @@ function syncBasic() {
 			  	success: function(result) {
 				syncResult=result
 				//alert(syncResult);
-				var syncResultArray = syncResult.split('rdrd');
+				var syncResultArray = syncResult.split('<rdrd>');
 					if (syncResultArray[0]=='YES'){	
 						localStorage.sync_code=syncResultArray[1];
 						
@@ -196,7 +196,8 @@ function searchRec(){
 			}else{
 				tmpUrl=apipath+'searchSanRec?cid=PLANBD&mobile='+localStorage.mobile_no+'&refID='+refID;
 			}
-								
+			
+											
 			$.ajax({
 				url:tmpUrl,
 			  	success: function(result) {
