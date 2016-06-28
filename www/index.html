@@ -1237,11 +1237,13 @@
             <li class="ui-field-contain" id="h_solid_chk">
                 <fieldset data-role="controlgroup" data-mini="true">
                     <input name="h_solid_1" id="h_solid_1" type="checkbox">
-                    <label for="h_solid_1">Septic</label>
+                    <label for="h_solid_1">Organic</label>
                     <input name="h_solid_2" id="h_solid_2" type="checkbox">
-                    <label for="h_solid_2">Aseptic</label> 
+                    <label for="h_solid_2">Inorganic</label> 
                     <input name="h_solid_3" id="h_solid_3" type="checkbox">
-                    <label for="h_solid_3">No</label>                                           
+                    <label for="h_solid_3">Both</label>
+                    <input name="h_solid_4" id="h_solid_4" type="checkbox">
+                    <label for="h_solid_4">No</label>                                           
                 </fieldset>
             </li>               
         </ul>   
@@ -1283,7 +1285,7 @@
         <a data-role="button" id="btn_take_pic" onClick="getAchivementImage();" class="ui-btn" >Take Picture 1</a> 
         <form >      
         <img src="" width="128" height="128" alt="Image" id="myImageA">
-        <input name="achPhoto" id="achPhoto" value="photo"   type="hidden">
+        <input name="achPhoto" id="achPhoto" value="photo"   type="text">
         
         <input name="ach_lat" id="ach_lat" value=""   type="hidden">
         <input name="ach_long" id="ach_long" value=""  type="hidden">
