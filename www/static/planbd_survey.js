@@ -28,7 +28,7 @@ function onError(error) {
 var apipath="http://e2.businesssolutionapps.com/planbd_survey/syncmobile_survey/";
 
 //--- local
-//var apipath="http://127.0.0.1:8000/planbd_survey/syncmobile_survey_test/";
+//var apipath="http://127.0.0.1:8000/planbd_survey/syncmobile_survey/";
 
 var detailsStr='';
 
@@ -946,7 +946,7 @@ function surveyDataSubmit(){
 					$(".errorChk").text("New records not available");
 					$("#btn_ach_submit").show();
 				}else{*/
-					imagePathA="test"
+					//imagePathA="test"
 					if (imagePathA!=""){
 						$(".errorChk").text("Syncing photo..");
 						imageName = localStorage.mobile_no+"_"+get_time+".jpg";						
@@ -1007,8 +1007,7 @@ function syncDataSurvey(){
 							
 							$("#ach_lat").val("");
 							$("#ach_long").val("");
-							$("#myImageA").val("");	
-							$("#myImageA").empty();							
+							$("#myImageA").val("");							
 							//$("input:radio").removeAttr('checked');
 							//$("input:checkbox").removeAttr('checked');
 							//$("#cbo_combo").val("");
