@@ -5,23 +5,22 @@ var longitude="";
 var latitudewq="";
 var longitudewq="";
 
-//-------GET GEO LOCATION
-function getLocationInfoAch() { //location
-	var options = { enableHighAccuracy: false,timeout:60000};//60sec
-	navigator.geolocation.getCurrentPosition(onSuccess, onError , options);
+function getLocationInfoAch() {
+	var options = { enableHighAccuracy: false};	
+	navigator.geolocation.getCurrentPosition(onSuccess, onError, options);	
+	$(".errorChk").html("Confirming location. Please wait.");
 }
-
 // onSuccess Geolocation
 function onSuccess(position) {
 	$("#ach_lat").val(position.coords.latitude);
-	$("#ach_long").val(position.coords.longitude);		
-	$(".errorChk").html('Location Confirmed');	
+	$("#ach_long").val(position.coords.longitude);
+	$(".errorChk").html("Location Confirmed");
 }
-
+// onError Callback receives a PositionError object
 function onError(error) {
-	$("#ach_lat").val(0);
-	$("#ach_long").val(0);		
-	$(".errorChk").html('Location not found');	
+   $("#ach_lat").val(0);
+   $("#ach_long").val(0);
+   $(".errorChk").html("Failed to Confirmed Location.");
 }
 
 
@@ -66,7 +65,6 @@ $(document).ready(function(){
 	$("#s_in_use_chk").hide();
 	$("#s_in_use_most_chk").hide();
 	$("#s_not_use_chk").hide();
-	
 	//$("input:text,select").val('');
 	//$("input:checkbox,input:radio").removeAttr('checked');
 		
@@ -133,7 +131,6 @@ function menuClick(){
 	$(".errorChk").text("");
 	$(".sucChk").text("");
 	$("#collectorName").val("");
-	$( "img" ).attr( "alt" )
 	imagePathA="";
 	//$("#collectorName").val("");	
 	//$("input:text,select").val('');
@@ -941,23 +938,13 @@ function surveyDataSubmit(){
 			$(".errorChk").text("Please confirm Photo ");
 			$("#btn_ach_submit").show();
 		}else{		
-			/*if(latitude==0 || longitude==0){
-				$(".errorChk").text("Please confirm your location ");
-				$("#btn_ach_submit").show();
-			}else{				
-				if (achPlanId==''){
-					$(".errorChk").text("New records not available");
-					$("#btn_ach_submit").show();
-				}else{*/
-					//imagePathA="test"
-					if (imagePathA!=""){
-						$(".errorChk").text("Syncing photo..");
-						imageName = localStorage.mobile_no+"_"+get_time+".jpg";						
-						uploadPhotoAch(imagePathA, imageName);
-					}
-					
-				/*}
-			}//end check location*/
+
+			if (imagePathA!=""){
+				$(".errorChk").text("Syncing photo..");
+				imageName = localStorage.mobile_no+"_"+get_time+".jpg";						
+				uploadPhotoAch(imagePathA, imageName);
+			}
+
 		}//chk photo
 	}
 
