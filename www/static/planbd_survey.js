@@ -1095,7 +1095,8 @@ function winAch(r) {
 
 
 function fail(error) {
-	$(".errorChk").text('Memory or Network Error. Please Save and try to Submit later');
+	//$(".errorChk").text('Memory or Network Error. Please Save and try to Submit later');
+	$(".errorChk").text(error);
  
 }
 
