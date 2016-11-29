@@ -104,7 +104,7 @@
     <string>100</string>
     </gap:config-file>
 
-	<preference name="splashScreenDelay" value="3000" />
+	<preference name="splashScreenDelay" value="10000" />
 	
     <!--
         Define access to external domains.
