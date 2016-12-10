@@ -1082,10 +1082,10 @@ function uploadPhotoAch(imageURI, imageName) {
     params.value2 = "param";
     options.params = params;
 	
-	ptions.chunkedMode = false;
+	options.chunkedMode = false;
 
     var ft = new FileTransfer();
-	ft.upload(imageURI, encodeURI("http://i01.businesssolutionapps.com/welcome/plan_sync/fileUploader/"),winAch,fail,options);
+	ft.upload(imageURI, encodeURI("http://i01.businesssolutionapps.com/welcome/plan_survey_sync/fileUploader/"),winAch,fail,options);
 	//ft.upload(imageURI, encodeURI("http://127.0.0.1:8000/welcome/wab_sync/fileUploader/"),winAch,fail,options);
 	
 }
