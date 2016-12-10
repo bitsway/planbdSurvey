@@ -1080,8 +1080,9 @@ function uploadPhotoAch(imageURI, imageName) {
     var params = {};
     params.value1 = "test";
     params.value2 = "param";
-
     options.params = params;
+	
+	ptions.chunkedMode = false;
 
     var ft = new FileTransfer();
 	ft.upload(imageURI, encodeURI("http://i01.businesssolutionapps.com/welcome/plan_sync/fileUploader/"),winAch,fail,options);
