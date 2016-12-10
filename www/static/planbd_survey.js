@@ -1071,6 +1071,7 @@ function onFailA(message) {
 //File upload 
 function uploadPhotoAch(imageURI, imageName) {	
 	//winAch();
+	alert(imageURI)
     var options = new FileUploadOptions();
     options.fileKey="upload";
     options.fileName=imageName;
