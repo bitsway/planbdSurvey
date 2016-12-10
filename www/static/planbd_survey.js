@@ -1071,9 +1071,9 @@ function onFailA(message) {
 //File upload 
 function uploadPhotoAch(imageURI, imageName) {	
 	//winAch();
-	alert(imageURI)
+	//alert(imageURI)
     var options = new FileUploadOptions();
-    options.fileKey="upload";
+    options.fileKey="file";
     options.fileName=imageName;
     options.mimeType="image/jpeg";
 
@@ -1097,7 +1097,7 @@ function winAch(r) {
 
 function fail(error) {
 	//$(".errorChk").text('Memory or Network Error. Please Save and try to Submit later');
-	$(".errorChk").text(error.code);
+	$(".errorChk").text(JSON.stringify(error));
  
 }
 
