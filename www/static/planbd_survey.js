@@ -1074,7 +1074,7 @@ function uploadPhotoAch(imageURI, imageName) {
 	//alert(imageURI)
     var options = new FileUploadOptions();
     options.fileKey="upload";
-    options.filename=imageName;
+    options.fileName=imageName;
     options.mimeType="image/jpeg";
 
     var params = {};
